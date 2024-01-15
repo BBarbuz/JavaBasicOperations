@@ -3,6 +3,7 @@ import Czlowiek.Uczen;
 import Czlowiek.Student;
 import Czlowiek.Emeryt;
 
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -258,10 +259,100 @@ public class Main {
         }
     }
 
+    public static void liczbaRzeczywista_6_2() {
+//        int mantysa Math.floor(liczba));
+//        System.out.println(Math.liczba - Math.floor(liczba));
+
+        Scanner scanner = new Scanner(System.in);
+        double liczba;
+
+        while (true) {
+            try {
+                System.out.println("Podaj liczbę zmiennoprzecinkową:");
+                liczba = scanner.nextDouble();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Błąd: Wprowadzono niepoprawny znak. Spróbuj ponownie.");
+                scanner.nextLine(); // Wyczyszczenie bufora wejściowego
+            }
+        }
+
+        try {
+
+            // Pobranie cechy i mantysy
+            int cecha = (int) Math.floor(Math.abs(liczba));
+            double mantysa = liczba % cecha;
+
+            // Wyświetlenie cechy i mantysy
+            System.out.println("Cecha: " + cecha);
+            System.out.println("Mantysa: " + mantysa);
+
+            // Obliczenie ilorazu cechy i mantysy
+            double iloraz = cecha / mantysa;
+            System.out.println("Iloraz cechy i mantysy: " + iloraz);
+
+        } catch (InputMismatchException e) {
+            System.out.println("Błąd: Wprowadzono niepoprawny znak.");
+        } catch (ArithmeticException e) {
+            System.out.println("Błąd: Nie można dzielić przez zero.");
+        } finally {
+            scanner.close();
+        }
+
+    }
+
+    private static int pobierzLiczbe(Scanner scanner) {
+        while (true) {
+            try {
+                System.out.println("Podaj liczbę całkowitą z zakresu <99,999>:");
+                return scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Błąd: Wprowadzono niepoprawny znak. Spróbuj ponownie.");
+                scanner.nextLine(); // Wyczyszczenie bufora wejściowego
+            }
+        }
+    }
+
+    private static int sumaKwadratowCyfr(int liczba) {
+        int suma = 0;
+        while (liczba != 0) {
+            int cyfra = liczba % 10;
+            suma += cyfra * cyfra;
+            liczba /= 10;
+        }
+        return suma;
+    }
+
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
+
+        // Interfejs do obslugi wyboru programu
+        System.out.println("LABORATORIUM 3. TWORZENIE APLIKACJI OBIEKTOWYCH DO\n" +
+                "PRZETWARZANIA TEKSTU.");
+        System.out.println("[1] Zadanie 3.1. Obecność w łańcuchu");
+        System.out.println("[2] Zadanie 3.2. Suma ASCII");
+        System.out.println("[3] Zadanie 3.3. Liczba na znak");
+        System.out.println("[4] Zadanie 3.4. Szyfr Cezara");
+        System.out.println("[5] Zadanie 3.5. Binarna zerówka");
+        System.out.println();
+        System.out.println("LABORATORIUM 4. TWORZENIE APLIKACJI OBIEKTOWYCH\n" +
+                "WYKORZYSTUJĄCYCH FUNKCJE MATEMATYCZNE.");
+        System.out.println("[6] Zadanie 4.1. Tablica jednowymiarowa");
+        System.out.println("[7] Zadanie 4.2. Tablica dwuwymiarowa");
+        System.out.println("[8] Zadanie 4.3. Klasa Okrag");
+        System.out.println();
+        System.out.println("LABORATORIUM 5. PROGRAMOWANIE OBIEKTOWE Z WYKORZYSTANIEM\n" +
+                "DZIEDZICZENIA I INTERFEJSÓW.");
+        System.out.println("[9] Zadanie 5.1. Dziedziczenie");
+        System.out.println("[10] Zadanie 5.2. Klasa abstrakcyjna i interfejs");
+        System.out.println();
+        System.out.println("LABORATORIUM 6. OBSŁUGA WYJĄTKÓW.");
+        System.out.println("[11] Zadanie 6.1. Kalkulator");
+        System.out.println("[12] Zadanie 6.2. Pobieranie liczby rzeczywistej");
+        System.out.println("[13] Zadanie 6.3. Pobieranie liczby całkowitej");
+        System.out.println();
 
         System.out.println("Wpisz numer zadania: ");
         int zad = sc.nextInt();
@@ -345,7 +436,7 @@ public class Main {
                 sprawdzWzajemnePolozenie(okrag1, okrag2);
                 break;
 
-            case 9: // Zadanie 5.1. Klasa Okrag
+            case 9: // Zadanie 5.1. Dziedziczenie
                 Figura zadanie5_1 = new Figura();
                 zadanie5_1.printMessage();
                 break;
@@ -396,6 +487,97 @@ public class Main {
                 zbigniew.jedz();
                 zbigniew.pij();
                 zbigniew.odpoczywaj();
+                break;
+
+            case 11: // Zadanie 6.1. Kalkulator
+
+                Scanner scanner = new Scanner(System.in);
+
+                try {
+                    System.out.println("Podaj pierwszą liczbę:");
+                    double liczba1 = scanner.nextDouble();
+
+                    System.out.println("Podaj operator (+, -, *, /, sqrt, ^):");
+                    String operator = scanner.next();
+
+                    if (operator.equals("sqrt")) {
+                        // Pierwiastkowanie
+                        if (liczba1 < 0) {
+                            throw new IllegalArgumentException("Nie można obliczyć pierwiastka z liczby ujemnej.");
+                        }
+                        double wynik2 = Math.sqrt(liczba1);
+                        System.out.println("Wynik: " + wynik2);
+                    } else {
+                        System.out.println("Podaj drugą liczbę:");
+                        double liczba2 = scanner.nextDouble();
+
+                        double wynik2;
+
+                        switch (operator) {
+                            case "+":
+                                wynik2 = liczba1 + liczba2;
+                                break;
+                            case "-":
+                                wynik2 = liczba1 - liczba2;
+                                break;
+                            case "*":
+                                wynik2 = liczba1 * liczba2;
+                                break;
+                            case "/":
+                                // Dzielenie
+                                if (liczba2 == 0) {
+                                    throw new ArithmeticException("Nie można dzielić przez zero.");
+                                }
+                                wynik2 = liczba1 / liczba2;
+                                break;
+                            case "^":
+                                // Potęgowanie
+                                wynik2 = Math.pow(liczba1, liczba2);
+                                break;
+                            default:
+                                throw new IllegalArgumentException("Niepoprawny operator.");
+                        }
+
+                        System.out.println("Wynik: " + wynik2);
+                    }
+
+                } catch (Exception e) {
+                    System.out.println("Błąd: " + e.getMessage());
+                } finally {
+                    scanner.close();
+                }
+
+                break;
+
+            case 12: // Zadanie 6.2. Pobieranie liczby rzeczywistej
+                liczbaRzeczywista_6_2();
+                break;
+
+            case 13: // Zadanie 6.3. Pobieranie liczby całkowitej
+
+                Scanner scanner3 = new Scanner(System.in);
+
+                while (true) {
+                    try {
+
+                        int liczba = pobierzLiczbe(scanner3);
+
+                        // Sprawdź, czy liczba należy do zakresu <99,999>
+                        if (liczba < 99 || liczba > 999) {
+                            throw new IllegalArgumentException("Liczba musi być z zakresu <99,999>.");
+                        }
+
+                        // Zwróć sumę kwadratów cyfr
+                        int sumaKwadratow = sumaKwadratowCyfr(liczba);
+                        System.out.println("Suma kwadratów cyfr liczby " + liczba + " to: " + sumaKwadratow);
+                        break;
+                    } catch (InputMismatchException e) {
+                        System.out.println("Błąd: Wprowadzono niepoprawny znak. Spróbuj ponownie.");
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Błąd: " + e.getMessage());
+                    }
+                }
+                scanner3.close();
                 break;
         }
 
