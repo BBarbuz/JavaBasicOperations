@@ -7,30 +7,6 @@ import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
-class Okrag {
-    private double x;
-    private double y;
-    private double promien;
-
-    public Okrag() {
-        Random rand = new Random();
-        this.x = rand.nextDouble() * (95 - 5) + 5; // Losowa liczba z zakresu <5, 95>
-        this.y = rand.nextDouble() * (95 - 5) + 5; // Losowa liczba z zakresu <5, 95>
-        this.promien = rand.nextDouble() * (5 - 1) + 1; // Losowa liczba z zakresu <1, 5>
-    }
-
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public double getPromien() {
-        return promien;
-    }
-} // Do zadania 4.3. Klasa Okrag
 
 public class Main {
 
@@ -208,9 +184,8 @@ public class Main {
                 } else
                     tab[i][j] = rnd.nextInt(41) - 20;
 
-                //System.out.print(tab[i][j]+" ");
             }
-            //System.out.println();
+
         }
 
         int suma_parz = 0;
@@ -260,8 +235,6 @@ public class Main {
     }
 
     public static void liczbaRzeczywista_6_2() {
-//        int mantysa Math.floor(liczba));
-//        System.out.println(Math.liczba - Math.floor(liczba));
 
         Scanner scanner = new Scanner(System.in);
         double liczba;
@@ -328,7 +301,7 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
 
-        // Interfejs do obslugi wyboru programu
+        // Interface for main method 
         System.out.println("LABORATORIUM 3. TWORZENIE APLIKACJI OBIEKTOWYCH DO\n" +
                 "PRZETWARZANIA TEKSTU.");
         System.out.println("[1] Zadanie 3.1. Obecność w łańcuchu");
@@ -355,42 +328,41 @@ public class Main {
         System.out.println();
 
         System.out.println("Wpisz numer zadania: ");
-        int zad = sc.nextInt();
-        String a;
-        int l;
+        int taskChoice = sc.nextInt();
 
-        switch (zad) {
+        String strScanner; // used for String input data for multiple below cases
+        int intScanner; // used for input int data for multiple below cases
+        
+        switch (taskChoice) {
             case 1:
 
                 System.out.println("Podaj łańcuch znaków: ");
-                a = sc.next();
+                strScanner = sc.next();
                 System.out.println("Podaj szukany znak: ");
-                char c = sc.next().charAt(0);
-                System.out.println("Wynik: " + zad_3_1(a, c));
+                char charScanner = sc.next().charAt(0);
+                System.out.println("Wynik: " + zad_3_1(strScanner, charScanner));
 
                 break;
 
             case 2:
-
                 System.out.println("Podaj łańcuch znaków ASCII: ");
-                a = sc.next();
-                System.out.println("Wynik: " + zad_3_2(a));
+                strScanner = sc.next();
+                System.out.println("Wynik: " + zad_3_2(strScanner));
 
                 break;
 
             case 3:
-
                 System.out.println("Podaj liczbe <33, 126>: ");
-                l = sc.nextInt();
-                System.out.println("Wynik: " + zad_3_3(l));
+                intScanner = sc.nextInt();
+                System.out.println("Wynik: " + zad_3_3(intScanner));
 
                 break;
 
             case 4:
 
-                String tekst = odczytajTekst_3_4();
+                String text = odczytajTekst_3_4();
 
-                String zaszyfrowanyTekst = szyfruj_3_4(tekst);
+                String zaszyfrowanyTekst = szyfruj_3_4(text);
                 System.out.println("Zaszyfrowany tekst: " + zaszyfrowanyTekst);
 
                 String odszyfrowanyTekst = deszyfruj_3_4(zaszyfrowanyTekst);
@@ -491,9 +463,7 @@ public class Main {
 
             case 11: // Zadanie 6.1. Kalkulator
 
-                Scanner scanner = new Scanner(System.in);
-
-                try {
+                try (Scanner scanner = new Scanner(System.in)) {
                     System.out.println("Podaj pierwszą liczbę:");
                     double liczba1 = scanner.nextDouble();
 
@@ -543,8 +513,6 @@ public class Main {
 
                 } catch (Exception e) {
                     System.out.println("Błąd: " + e.getMessage());
-                } finally {
-                    scanner.close();
                 }
 
                 break;
