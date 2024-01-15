@@ -299,7 +299,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
         // Interface for main method 
         System.out.println("LABORATORIUM 3. TWORZENIE APLIKACJI OBIEKTOWYCH DO\n" +
@@ -328,7 +328,7 @@ public class Main {
         System.out.println();
 
         System.out.println("Wpisz numer zadania: ");
-        int taskChoice = sc.nextInt();
+        int taskChoice = scanner.nextInt();
 
         String strScanner; // used for String input data for multiple below cases
         int intScanner; // used for input int data for multiple below cases
@@ -337,23 +337,23 @@ public class Main {
             case 1:
 
                 System.out.println("Podaj łańcuch znaków: ");
-                strScanner = sc.next();
+                strScanner = scanner.next();
                 System.out.println("Podaj szukany znak: ");
-                char charScanner = sc.next().charAt(0);
+                char charScanner = scanner.next().charAt(0);
                 System.out.println("Wynik: " + zad_3_1(strScanner, charScanner));
 
                 break;
 
             case 2:
                 System.out.println("Podaj łańcuch znaków ASCII: ");
-                strScanner = sc.next();
+                strScanner = scanner.next();
                 System.out.println("Wynik: " + zad_3_2(strScanner));
 
                 break;
 
             case 3:
                 System.out.println("Podaj liczbe <33, 126>: ");
-                intScanner = sc.nextInt();
+                intScanner = scanner.nextInt();
                 System.out.println("Wynik: " + zad_3_3(intScanner));
 
                 break;
@@ -369,7 +369,7 @@ public class Main {
                 System.out.println("Odszyfrowany tekst: " + odszyfrowanyTekst);
 
                 System.out.print("Podaj tekst do sprawdzenia czy jest palindromem: ");
-                String tekstDoSprawdzenia = sc.next();
+                String tekstDoSprawdzenia = scanner.next();
 
                 boolean czyPalindrom = sprawdzCzyPalindrom_3_4(tekstDoSprawdzenia);
                 System.out.println("Czy tekst jest palindromem? " + czyPalindrom);
@@ -463,12 +463,13 @@ public class Main {
 
             case 11: // Zadanie 6.1. Kalkulator
 
-                try (Scanner scanner = new Scanner(System.in)) {
+                try (Scanner scanner2 = new Scanner(System.in)) {
                     System.out.println("Podaj pierwszą liczbę:");
-                    double liczba1 = scanner.nextDouble();
+                    double liczba1 = scanner2.nextDouble();
 
                     System.out.println("Podaj operator (+, -, *, /, sqrt, ^):");
-                    String operator = scanner.next();
+                    String operator = scanner2.next();
+                    scanner2.close();
 
                     if (operator.equals("sqrt")) {
                         // Pierwiastkowanie
@@ -479,7 +480,7 @@ public class Main {
                         System.out.println("Wynik: " + wynik2);
                     } else {
                         System.out.println("Podaj drugą liczbę:");
-                        double liczba2 = scanner.nextDouble();
+                        double liczba2 = scanner2.nextDouble();
 
                         double wynik2;
 
@@ -546,6 +547,7 @@ public class Main {
                     }
                 }
                 scanner3.close();
+                scanner.close();
                 break;
         }
 
